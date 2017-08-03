@@ -58,10 +58,7 @@ class Obstacles(Game):
             return 0
 
     def is_over(self):
-        if self.state[0, 0] == self.grid_size - 1:
-            return True
-        else:
-            return False
+        return self.board[self.player] is 1
 
     def is_won(self):
         fruit_row, fruit_col, basket = self.state[0]
