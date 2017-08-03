@@ -16,7 +16,7 @@ class Obstacles(Game):
 
     @property
     def name(self):
-        return "Catch"
+        return "Obstacles"
 
     @property
     def nb_actions(self):
