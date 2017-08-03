@@ -39,12 +39,9 @@ class Obstacles(Game):
         self.state = out
 
     def get_state(self):
-        im_size = (self.grid_size,) * 2
-        state = self.state[0]
-        canvas = np.zeros(im_size)
-        canvas[state[0], state[1]] = 1
-        canvas[-1, state[2] - 1:state[2] + 2] = 1
-        return canvas
+        canvas = copy.deepcopy(self.board)
+        canvas[self.player] = 2
+        return np.asarray(canvas)
 
     def get_score(self):
         if self.board[self.player] is 1:
