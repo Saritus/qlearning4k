@@ -1,39 +1,38 @@
 class Game(object):
-	
-	def __init__(self):
-		self.reset()
+    def __init__(self):
+        self.reset()
 
-	@property
-	def name(self):
-		return "Game"
-	
-	@property
-	def nb_actions(self):
-		return 0
-	
-	def reset(self):
-		pass
+    @property
+    def name(self):
+        return "Game"
 
-	def play(self, action):
-		pass
+    @property
+    def nb_actions(self):
+        return 0
 
-	def get_state(self):
-		return None
+    def reset(self):
+        pass
 
-	def get_score(self):
-		return 0
+    def play(self, action):
+        pass
 
-	def is_over(self):
-		return False
+    def get_state(self):
+        return None
 
-	def is_won(self):
-		return False
+    def get_score(self):
+        return 0
 
-	def get_frame(self):
-		return self.get_state()
+    def is_over(self):
+        return False
 
-	def draw(self):
-		return self.get_state()
+    def is_won(self):
+        return False
 
-	def get_possible_actions(self):
-		return range(self.nb_actions)
+    def get_frame(self):
+        return self.get_state()
+
+    def draw(self):
+        return self.get_state()
+
+    def get_possible_actions(self):
+        return range(self.nb_actions)

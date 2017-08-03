@@ -2,8 +2,8 @@ import numpy as np
 from random import sample
 from keras import backend as K
 
-class Memory:
 
+class Memory:
     def __init__(self):
         pass
 
@@ -15,7 +15,6 @@ class Memory:
 
 
 class ExperienceReplay(Memory):
-
     def __init__(self, memory_size=100, fast=True):
         self.fast = fast
         self.memory = []
@@ -23,7 +22,8 @@ class ExperienceReplay(Memory):
 
     def remember(self, s, a, r, s_prime, game_over):
         self.input_shape = s.shape[1:]
-        self.memory.append(np.concatenate([s.flatten(), np.array(a).flatten(), np.array(r).flatten(), s_prime.flatten(), 1 * np.array(game_over).flatten()]))
+        self.memory.append(
+            np.concatenate([s.flatten(), np.array(a).flatten(), np.array(r).flatten(), s_prime.flatten(), 1 * np.array(game_over).flatten()]))
         if self.memory_size > 0 and len(self.memory) > self.memory_size:
             self.memory.pop(0)
 
@@ -35,15 +35,15 @@ class ExperienceReplay(Memory):
         nb_actions = model.output_shape[-1]
         samples = np.array(sample(self.memory, batch_size))
         input_dim = np.prod(self.input_shape)
-        S = samples[:, 0 : input_dim]
+        S = samples[:, 0: input_dim]
         a = samples[:, input_dim]
         r = samples[:, input_dim + 1]
-        S_prime = samples[:, input_dim + 2 : 2 * input_dim + 2]
+        S_prime = samples[:, input_dim + 2: 2 * input_dim + 2]
         game_over = samples[:, 2 * input_dim + 2]
         r = r.repeat(nb_actions).reshape((batch_size, nb_actions))
         game_over = game_over.repeat(nb_actions).reshape((batch_size, nb_actions))
-        S = S.reshape((batch_size, ) + self.input_shape)
-        S_prime = S_prime.reshape((batch_size, ) + self.input_shape)
+        S = S.reshape((batch_size,) + self.input_shape)
+        S_prime = S_prime.reshape((batch_size,) + self.input_shape)
         X = np.concatenate([S, S_prime], axis=0)
         Y = model.predict(X)
         Qsa = np.max(Y[batch_size:], axis=1).repeat(nb_actions).reshape((batch_size, nb_actions))
@@ -69,18 +69,18 @@ class ExperienceReplay(Memory):
     def set_batch_function(self, model, input_shape, batch_size, nb_actions, gamma):
         input_dim = np.prod(input_shape)
         samples = K.placeholder(shape=(batch_size, input_dim * 2 + 3))
-        S = samples[:, 0 : input_dim]
+        S = samples[:, 0: input_dim]
         a = samples[:, input_dim]
         r = samples[:, input_dim + 1]
-        S_prime = samples[:, input_dim + 2 : 2 * input_dim + 2]
-        game_over = samples[:, 2 * input_dim + 2 : 2 * input_dim + 3]
+        S_prime = samples[:, input_dim + 2: 2 * input_dim + 2]
+        game_over = samples[:, 2 * input_dim + 2: 2 * input_dim + 3]
         r = K.reshape(r, (batch_size, 1))
         r = K.repeat(r, nb_actions)
         r = K.reshape(r, (batch_size, nb_actions))
         game_over = K.repeat(game_over, nb_actions)
         game_over = K.reshape(game_over, (batch_size, nb_actions))
-        S = K.reshape(S, (batch_size, ) + input_shape)
-        S_prime = K.reshape(S_prime, (batch_size, ) + input_shape)
+        S = K.reshape(S, (batch_size,) + input_shape)
+        S_prime = K.reshape(S_prime, (batch_size,) + input_shape)
         X = K.concatenate([S, S_prime], axis=0)
         Y = model(X)
         Qsa = K.max(Y[batch_size:], axis=1)
@@ -91,7 +91,7 @@ class ExperienceReplay(Memory):
         targets = (1 - delta) * Y[:batch_size] + delta * (r + gamma * (1 - game_over) * Qsa)
         self.batch_function = K.function(inputs=[samples], outputs=[S, targets])
 
-    def  one_hot(self, seq, num_classes):
+    def one_hot(self, seq, num_classes):
         return K.one_hot(K.reshape(K.cast(seq, "int32"), (-1, 1)), num_classes)
 
     def get_batch_fast(self, model, batch_size, gamma):
