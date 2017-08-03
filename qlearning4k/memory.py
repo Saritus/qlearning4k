@@ -23,7 +23,8 @@ class ExperienceReplay(Memory):
     def remember(self, s, a, r, s_prime, game_over):
         self.input_shape = s.shape[1:]
         self.memory.append(
-            np.concatenate([s.flatten(), np.array(a).flatten(), np.array(r).flatten(), s_prime.flatten(), 1 * np.array(game_over).flatten()]))
+            np.concatenate([s.flatten(), np.array(a).flatten(), np.array(r).flatten(), s_prime.flatten(), 1 * np.array(game_over).flatten()])
+        )
         if self.memory_size > 0 and len(self.memory) > self.memory_size:
             self.memory.pop(0)
 
