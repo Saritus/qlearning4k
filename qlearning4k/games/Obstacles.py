@@ -20,7 +20,7 @@ class Obstacles(Game):
 
     @property
     def nb_actions(self):
-        return 3
+        return 5
 
     def play(self, action):
         state = self.state
