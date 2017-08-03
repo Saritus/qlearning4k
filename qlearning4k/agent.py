@@ -103,7 +103,7 @@ class Agent:
             print("Epoch {:03d}/{:03d} | Loss {:.4f} | Epsilon {:.2f} | Win count {}".format(epoch + 1, nb_epoch, loss, epsilon, win_count))
 
     def play(self, game, nb_epoch=10, epsilon=0., visualize=True):
-        self.check_game_compatibility(game)
+        # self.check_game_compatibility(game)
         model = self.model
         win_count = 0
         frames = []
