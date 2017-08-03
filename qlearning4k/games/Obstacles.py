@@ -23,20 +23,26 @@ class Obstacles(Game):
         return 5
 
     def play(self, action):
-        state = self.state
-        if action == 0:
-            action = -1
-        elif action == 1:
-            action = 0
-        else:
-            action = 1
-        f0, f1, basket = state[0]
-        new_basket = min(max(1, basket + action), self.grid_size - 1)
-        f0 += 1
-        out = np.asarray([f0, f1, new_basket])
-        out = out[np.newaxis]
-        assert len(out.shape) == 2
-        self.state = out
+        # Left
+        if (action is 0
+            and self.player[0] > 0
+            and self.board[self.player[0] - 1, self.player[1]] is 0):
+            self.player[0] -= 1
+        # Right
+        elif (action is 1
+              and self.player[0] < self.grid_size - 1
+              and self.board[self.player[0] + 1, self.player[1]] is 0):
+            self.player[0] += 1
+        # Up
+        elif (action is 2
+              and self.player[1] > 0
+              and self.board[self.player[0], self.player[1] - 1] is 0):
+            self.player[1] -= 1
+        # Down
+        elif (action is 3
+              and self.player[1] > self.grid_size - 1
+              and self.board[self.player[0], self.player[1] + 1] is 0):
+            self.player[1] += 1
 
     def get_state(self):
         canvas = copy.deepcopy(self.board)
