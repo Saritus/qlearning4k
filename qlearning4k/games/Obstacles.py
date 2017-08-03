@@ -47,13 +47,8 @@ class Obstacles(Game):
         return canvas
 
     def get_score(self):
-        fruit_row, fruit_col, basket = self.state[0]
-        if fruit_row == self.grid_size - 1:
-            if abs(fruit_col - basket) <= 1:
-                self.won = True
-                return 1
-            else:
-                return -1
+        if self.board[self.player] is 1:
+            return -1
         else:
             return 0
 
