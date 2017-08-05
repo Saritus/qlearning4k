@@ -62,7 +62,7 @@ class Obstacles(Game):
         else:
 
     def is_over(self):
-        return self.board[self.player[0], self.player[1]] == 1
+        return self.board[self.player[0], self.player[1]] == 1 or self.player[0] == 0
 
     def is_won(self):
         return self.player[0] == 0
