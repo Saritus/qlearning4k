@@ -6,8 +6,9 @@ import copy
 
 
 class Obstacles(Game):
-    def __init__(self, grid_size=10):
+    def __init__(self, grid_size=10, obstacles=1):
         self.grid_size = grid_size
+        self.obstacles = obstacles
         self.won = False
         self.reset()
 
@@ -47,7 +48,8 @@ class Obstacles(Game):
 
         self.board = np.roll(self.board, 1, axis=0)
         self.board[0] = np.zeros(self.grid_size)
-        self.board[0][np.random.randint(0, self.grid_size)] = 1
+        for _ in range(self.obstacles):
+            self.board[0][np.random.randint(0, self.grid_size)] = 1
 
     def get_state(self):
         canvas = copy.deepcopy(self.board)
