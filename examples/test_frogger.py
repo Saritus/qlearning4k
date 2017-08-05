@@ -15,7 +15,7 @@ model.add(Dense(hidden_size, activation='relu'))
 model.add(Dense(5, activation='softmax'))
 model.compile(sgd(lr=.2), "mse")
 
-game = Frogger(grid_size, 1)
+game = Frogger(grid_size)
 agent = Agent(model=model)
 agent.train(game, batch_size=50, nb_epoch=10000, epsilon_rate=0.2)
 agent.play(game, nb_epoch=10)

@@ -6,9 +6,8 @@ import copy
 
 
 class Frogger(Game):
-    def __init__(self, grid_size=10, obstacles=1):
+    def __init__(self, grid_size=10):
         self.grid_size = grid_size
-        self.obstacles = obstacles
         self.won = False
         self.reset()
 
@@ -48,8 +47,7 @@ class Frogger(Game):
 
         self.board = np.roll(self.board, 1, axis=0)
         self.board[0] = np.zeros(self.grid_size)
-        for _ in range(self.obstacles):
-            self.board[0][np.random.randint(0, self.grid_size)] = 1
+        self.board[0][np.random.randint(0, self.grid_size)] = 1
 
     def get_state(self):
         canvas = copy.deepcopy(self.board)
