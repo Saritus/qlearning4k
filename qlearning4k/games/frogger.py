@@ -12,8 +12,12 @@ class Frogger(Game):
         self.reset()
 
     def reset(self):
-        self.board = np.zeros((self.grid_size, self.grid_size))
+        self.board = self.create_board()
         self.player = [self.grid_size - 1, int(self.grid_size / 2)]
+
+    def create_board(self):
+        board = np.zeros((self.grid_size, self.grid_size))
+        return board
 
     @property
     def name(self):
