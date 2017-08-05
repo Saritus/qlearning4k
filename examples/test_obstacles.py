@@ -17,5 +17,5 @@ model.compile(sgd(lr=.2), "mse")
 
 game = Obstacles(grid_size)
 agent = Agent(model=model)
-agent.train(game, batch_size=10, nb_epoch=1000, epsilon=.1)
+agent.train(game, batch_size=50, nb_epoch=10000, epsilon_rate=.2)
 agent.play(game)
