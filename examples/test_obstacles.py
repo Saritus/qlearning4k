@@ -1,5 +1,5 @@
 from keras.models import Sequential
-from keras.layers import Flatten, Dense
+from keras.layers import *
 from qlearning4k.games import Obstacles
 from keras.optimizers import *
 from qlearning4k import Agent
