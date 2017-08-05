@@ -58,10 +58,9 @@ class Obstacles(Game):
         if self.board[self.player[0], self.player[1]] == 1:
             return -1
         else:
-            return 0
 
     def is_over(self):
         return self.board[self.player[0], self.player[1]] == 1
 
     def is_won(self):
-        return False
+        return self.player[0] == 0
