@@ -12,7 +12,7 @@ model = Sequential()
 model.add(Flatten(input_shape=(nb_frames, grid_size, grid_size)))
 model.add(Dense(hidden_size, activation='relu'))
 model.add(Dense(hidden_size, activation='relu'))
-model.add(Dense(5))
+model.add(Dense(5, activation='softmax'))
 model.compile(sgd(lr=.2), "mse")
 
 game = Obstacles(grid_size)
