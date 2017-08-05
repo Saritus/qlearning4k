@@ -21,7 +21,7 @@ class Frogger(Game):
 
     @property
     def name(self):
-        return "Obstacles"
+        return "Frogger"
 
     @property
     def nb_actions(self):
